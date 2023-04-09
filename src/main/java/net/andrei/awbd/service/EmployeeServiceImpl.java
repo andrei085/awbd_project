@@ -4,16 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import net.andrei.awbd.exceptions.ResourceNotFoundException;
+import net.andrei.awbd.model.*;
+import net.andrei.awbd.repository.*;
 import org.slf4j.Logger;
 
-import net.andrei.awbd.model.City;
-import net.andrei.awbd.model.Department;
-import net.andrei.awbd.model.Employee;
-import net.andrei.awbd.model.Projects;
-import net.andrei.awbd.repository.CityRepository;
-import net.andrei.awbd.repository.DepartmentRepository;
-import net.andrei.awbd.repository.EmployeeRepository;
-import net.andrei.awbd.repository.ProjectsRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private ProjectsRepository projectsRepository;
+
+	@Autowired
+	private ReviewsRepository reviewsRepository;
 	@Autowired
 	private CityRepository cityRepository;
 	@Autowired
@@ -73,15 +70,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void assignProject(long id, long projectID) {
-		Optional<Employee> optional = this.employeeRepository.findById(id);
+	public void saveReview(long employeeID,Reviews review){
+		Optional<Employee> optional = this.employeeRepository.findById(employeeID);
 		Employee employee = null;
 		if (optional.isPresent()) {
 			employee = optional.get();
 		}
 		else {
-			logger.error(" Employee not found for id :: " + id);
-			throw new ResourceNotFoundException("employee " + id + " not found");
+			logger.error(" Employee not found for id :: " + employeeID);
+			throw new ResourceNotFoundException("employee " + employeeID + " not found");
+		}
+		review.setEmployee(employee);
+		employee.getReviews().add(review);
+		this.reviewsRepository.save(review);
+		logger.info("Project saved with id " + review.getId());
+	}
+
+	@Override
+	public void assignProject(long employeeID, long projectID) {
+		Optional<Employee> optional = this.employeeRepository.findById(employeeID);
+		Employee employee = null;
+		if (optional.isPresent()) {
+			employee = optional.get();
+		}
+		else {
+			logger.error(" Employee not found for id :: " + employeeID);
+			throw new ResourceNotFoundException("employee " + employeeID + " not found");
 		}
 		Optional<Projects> projectsOptional = this.projectsRepository.findById(projectID);
 		Projects project = null;

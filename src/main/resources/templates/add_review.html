@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Employee Management System</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Employee Management System</h1>
+    <div th:with="fullName = ${employee.firstName} +' ' + ${employee.lastName}">
+        <h2>Add Review to <span th:utext="${fullName}"></span></h2>
+    </div>
+    <hr>
+    <form action="#" th:action="@{'/saveReview/{empid}'(empid=${employee.id})}" th:object="${empReview}" th:method="POST">
+        <input type="text" th:field="*{review}"
+               placeholder="Review Description" class="form-control mb-4 col-4">
+        <label th:if="${#fields.hasErrors('review')}" th:errors="*{review}">Error</label>
+        <input type="number" th:field="*{rating}"
+               placeholder="Rating" class="form-control mb-4 col-4">
+        <label th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">Error</label>
+        <button type="submit" class="btn btn-info col-2">Add Review</button>
+    </form>
+    <hr>
+    <a th:href = "@{/}"> Back to Employee List</a>
+</div>
+
+</body>
+</html>

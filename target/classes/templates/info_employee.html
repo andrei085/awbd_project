@@ -53,6 +53,24 @@
 				</tr>
 				</tbody>
 			</table>
+			<h2 class="mt-3">Reviews:</h2>
+			<table>
+				<thead>
+				<tr>
+					<th class="mr-3"> Rating </th>
+					<th class="mr-3"> Description </th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:if="${employee.reviews.isEmpty()}">
+					<td colspan="2"> No Reviews</td>
+				</tr>
+				<tr th:each="empReview : ${employee.reviews}">
+					<td class="mr-3"><span th:text="${empReview.rating}"> Rating </span></td>
+					<td class="mr-3"><span th:text="${empReview.review}"> Description </span></td>
+				</tr>
+				</tbody>
+			</table>
 		</form>
 		
 		<hr>

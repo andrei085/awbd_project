@@ -3,10 +3,7 @@ package net.andrei.awbd.controller;
 import java.util.List;
 
 import net.andrei.awbd.exceptions.ResourceNotFoundException;
-import net.andrei.awbd.model.City;
-import net.andrei.awbd.model.Department;
-import net.andrei.awbd.model.Employee;
-import net.andrei.awbd.model.Projects;
+import net.andrei.awbd.model.*;
 import net.andrei.awbd.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -108,6 +105,14 @@ public class EmployeeController {
 		return "redirect:/";
 	}
 
+	@PostMapping("/saveReview/{empid}")
+	public String saveReview(@PathVariable ( value = "empid") long employeeID ,@Valid @ModelAttribute ("empReview") Reviews review,
+							 BindingResult bindingResult) {
+		if (bindingResult.hasErrors()){return "add_review";}
+		this.employeeService.saveReview(employeeID,review);
+		return "redirect:/";
+	}
+
 	@GetMapping("/assignForm/{id}")
 	public String showAssignForm(@PathVariable ( value = "id") long id, Model model) {
 		Employee employee = employeeService.getEmployeeById(id);
@@ -117,6 +122,16 @@ public class EmployeeController {
 		model.addAttribute("projects",projects);
 		model.addAttribute("project",project);
 		return "assign_project";
+	}
+
+	@GetMapping("/addReview/{id}")
+	public String addReview(@PathVariable ( value = "id") long id, Model model) {
+		Employee employee = employeeService.getEmployeeById(id);
+		Reviews empReview = new Reviews();
+		empReview.setEmployee(employee);
+		model.addAttribute("employee", employee);
+		model.addAttribute("empReview",empReview);
+		return "add_review";
 	}
 	
 	@GetMapping("/deleteEmployee/{id}")
