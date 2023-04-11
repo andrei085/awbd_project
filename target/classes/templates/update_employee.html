@@ -14,22 +14,26 @@
 		<h2>Update Employee</h2>
 
 		<form action="#" th:action="@{/updateEmployee}" th:object="${employee}"
-			method="POST">
-			
-			<!-- Add hidden form field to handle update -->
-			<input type="hidden" th:field="*{id}" />
-			
-			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-4">
-				
-				<input type="text" th:field="*{lastName}" class="form-control mb-4 col-4">
-				
-				<input type="text" th:field="*{email}" class="form-control mb-4 col-4">
+			  method="POST">
+			<input type="text" th:field="*{firstName}"
+				   placeholder="Employee First Name" class="form-control mb-4 col-4">
+			<label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</label>
+
+			<input type="text" th:field="*{lastName}"
+				   placeholder="Employee Last Name" class="form-control mb-4 col-4">
+			<label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</label>
+
+			<input type="text" th:field="*{email}"
+				   placeholder="Employee Email" class="form-control mb-4 col-4">
+			<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</label>
 
 			<h2>Address: </h2>
 
-			<input type="text" th:field="*{address.street}" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{address.street}"
+				   placeholder="Employee Street Name" class="form-control mb-4 col-4">
 
-			<input type="number" th:field="*{address.number}" class="form-control mb-4 col-4">
+			<input type="number" th:field="*{address.number}"
+				   placeholder="Employee Street Number" class="form-control mb-4 col-4">
 			<h3>City</h3>
 			<select class="form-control" id="dropDownListCity" th:field="*{address.city.id}">
 				<option th:each="option : ${cities}" th:value="${option.id}" th:text="${option.name}"></option>
@@ -38,8 +42,9 @@
 			<select class="form-control mb-4" id="dropDownListDept" th:field="*{department.id}">
 				<option th:each="option : ${departments}" th:value="${option.id}" th:text="${option.name}"></option>
 			</select>
-				
-				<button type="submit" class="btn btn-info col-2"> Update Employee</button>
+			<label th:if="${#fields.hasErrors('department.id')}" th:errors="*{department}">Error</label>
+
+			<button type="submit" class="btn btn-info col-2"> Save Employee</button>
 		</form>
 		
 		<hr>

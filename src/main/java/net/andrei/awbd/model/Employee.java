@@ -15,10 +15,12 @@ public class Employee {
 	private long id;
 	
 	@Column(name = "first_name")
+	@Pattern(regexp = "[A-Za-z -]*", message = "only letters spaces or -")
 	@NotNull(message = "cannot be empty")
 	private String firstName;
 	
 	@Column(name = "last_name")
+	@Pattern(regexp = "[A-Za-z -]*", message = "only letters spaces or -")
 	@NotNull(message = "cannot be empty")
 	private String lastName;
 	
