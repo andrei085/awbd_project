@@ -1,6 +1,7 @@
 package net.andrei.awbd.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.HashSet;
@@ -16,16 +17,16 @@ public class Employee {
 	
 	@Column(name = "first_name")
 	@Pattern(regexp = "[A-Za-z -]*", message = "only letters spaces or -")
-	@NotNull(message = "cannot be empty")
+	@NotEmpty(message = "cannot be empty")
 	private String firstName;
 	
 	@Column(name = "last_name")
 	@Pattern(regexp = "[A-Za-z -]*", message = "only letters spaces or -")
-	@NotNull(message = "cannot be empty")
+	@NotEmpty(message = "cannot be empty")
 	private String lastName;
 	
 	@Column(name = "email")
-	@NotNull(message = "cannot be empty")
+	@NotEmpty(message = "cannot be empty")
 	private String email;
 
 	@OneToOne(cascade = CascadeType.ALL)

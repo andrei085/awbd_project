@@ -2,6 +2,7 @@ package net.andrei.awbd.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import java.util.Set;
@@ -16,7 +17,7 @@ public class Projects {
     private long id;
 
     @Column(name = "name")
-    @NotNull(message = "cannot be empty")
+    @NotEmpty(message = "cannot be empty")
     private String name;
 
     @ManyToMany

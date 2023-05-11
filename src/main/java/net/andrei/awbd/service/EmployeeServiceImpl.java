@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee = optional.get();
 		} else {
 			logger.error(" Employee not found for id :: " + id);
-			throw new ResourceNotFoundException("employee " + id + " not found");
+			throw new ResourceNotFoundException("Employee with the id: " + id + " was not found");
 		}
 		return employee;
 	}
@@ -78,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		else {
 			logger.error(" Employee not found for id :: " + employeeID);
-			throw new ResourceNotFoundException("employee " + employeeID + " not found");
+			throw new ResourceNotFoundException("Employee with the id " + employeeID + " was not found");
 		}
 		review.setEmployee(employee);
 		employee.getReviews().add(review);
@@ -95,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		else {
 			logger.error(" Employee not found for id :: " + employeeID);
-			throw new ResourceNotFoundException("employee " + employeeID + " not found");
+			throw new ResourceNotFoundException("Employee with the id: " + employeeID + " was not found");
 		}
 		Optional<Projects> projectsOptional = this.projectsRepository.findById(projectID);
 		Projects project = null;
@@ -109,7 +109,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		else {
 			logger.error(" Project not found for id :: " + projectID);
-			throw new ResourceNotFoundException("project " + projectID + " not found");
+			throw new ResourceNotFoundException("Project with the id " + projectID + " was not found");
 		}
 	}
 
