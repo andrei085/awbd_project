@@ -61,16 +61,28 @@ public class EmployeeController {
 
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee,
-							   BindingResult bindingResult) {
-		if (bindingResult.hasErrors()){return "new_employee";}
+							   BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()){
+			List<City> cities = employeeService.getCities();
+			List<Department> departments = employeeService.getDepartments();
+			model.addAttribute("cities",cities);
+			model.addAttribute("departments",departments);
+			return "new_employee";
+		}
 		employeeService.saveEmployee(employee);
 		return "redirect:/";
 	}
 
 	@PostMapping("/updateEmployee")
 	public String updateEmployee(@Valid @ModelAttribute("employee") Employee employee,
-							   BindingResult bindingResult) {
-		if (bindingResult.hasErrors()){return "update_employee";}
+							   BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()){
+			List<City> cities = employeeService.getCities();
+			List<Department> departments = employeeService.getDepartments();
+			model.addAttribute("cities",cities);
+			model.addAttribute("departments",departments);
+			return "update_employee";
+		}
 		employeeService.saveEmployee(employee);
 		return "redirect:/";
 	}

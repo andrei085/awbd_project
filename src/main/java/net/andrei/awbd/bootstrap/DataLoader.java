@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-@Profile("mysql")
 public class DataLoader implements CommandLineRunner {
 
     private RoleRepository roleRepository;

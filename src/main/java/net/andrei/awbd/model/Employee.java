@@ -1,10 +1,10 @@
 package net.andrei.awbd.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,6 +27,7 @@ public class Employee {
 	
 	@Column(name = "email")
 	@NotEmpty(message = "cannot be empty")
+	@Email(message = "invalid email address")
 	private String email;
 
 	@OneToOne(cascade = CascadeType.ALL)

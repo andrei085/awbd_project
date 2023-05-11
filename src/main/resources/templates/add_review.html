@@ -18,6 +18,7 @@
         <input type="text" th:field="*{review}"
                placeholder="Review Description" class="form-control mb-4 col-4">
         <label th:if="${#fields.hasErrors('review')}" th:errors="*{review}">Error</label>
+        <label>Rating</label>
         <input type="number" th:field="*{rating}"
                placeholder="Rating" class="form-control mb-4 col-4">
         <label th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">Error</label>
